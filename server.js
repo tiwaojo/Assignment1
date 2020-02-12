@@ -22,8 +22,17 @@ server.listen(5000, function() {
 
 // Add the WebSocket handlers
 io.on('connection', function(socket) {
-    socket.on("selectOpt", function(data) {
-        io.sockets.emit("selectOpt", data);
+    socket.on("selectOpt1", function(data) {
+        io.sockets.emit("selectOpt1", data);
+        // fn(data + "selected");
+    });
+    socket.on("selectOpt2", function(data) {
+        io.sockets.emit("selectOpt2", data);
+        // fn(data + "selected");
+    });
+    socket.on("selectOpt3", function(data) {
+        io.sockets.emit("selectOpt3", data);
+        // fn(data + "selected");
     });
 
     socket.on("name", function(name, fn) {
@@ -34,9 +43,9 @@ io.on('connection', function(socket) {
 var players = {};
 io.on('connection', function(socket) {
     socket.on('new player', function() {
+
         players[socket.id] = {
-            x: 300,
-            y: 300
+            // alert("this");
         };
     });
     socket.on('play', function(data) {
