@@ -88,11 +88,13 @@ setInterval(function() {
 
 
 socket.on('state', function(players) {
-
+    var clients = [];
     for (var id in players) {
-        var player = players[id];
-        player[0];
-        player[1];
+        // var player = players[id];
+        clients[0] = players[id];
+        clients[1] = players[id];
+
+
 
         // alert(player[0]);
         rock;
@@ -100,6 +102,12 @@ socket.on('state', function(players) {
         scissors;
 
 
+    }
+    // var player1 = io.sockets.clients(players);
+    // var player2 = io.sockets.clients(players);
+
+    if ((clients[0] == rock) || (clients[1] == rock)) {
+        alert("won");
     }
 });
 // scissors.style.display = none;
