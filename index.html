@@ -50,21 +50,22 @@
             display: none;
         }
         
-        a {
+        button {
             padding: 15px;
             justify-content: center;
             /* align-self: center; */
             position: relative;
+            border: none;
+            background: none;
         }
         
-        a:hover {
+        button:hover {
             /* display: flex; */
             position: relative;
         }
-        
-        a:active h3 {
+        /* button:active h3 {
             color: red;
-        }
+        } */
         
         #player {
             font-family: 'Permanent Marker', cursive;
@@ -88,7 +89,7 @@
         }
     </style>
     <script src="../socket.io/socket.io.js"></script>
-    <script src="../game.js"></script>
+
 
 </head>
 
@@ -96,21 +97,32 @@
 
 
     <div class="container py-5" id="div">
+        <!-- <option value="rock"> -->
+        <button id="rock">
+            <!-- onclick="selectRock()" -->
+                    <img src="images/Rock1.png" alt="rock">
+                    <h3>ROCK</h3>
+                </button>
+        <!-- </option> -->
 
-        <a href="" id="rock" onclick="selectCard()">
-            <img src="images/Rock1.png" alt="rock">
-            <h3>ROCK</h3>
-        </a>
+        <!-- <option value="rock"> -->
+        <button id="paper">
+                    <img src="images/Paper1.png" alt="paper"
+                        >
+                        <!-- onclick="selectPaper()" -->
+                    <h3>PAPER</h3>
+                </button>
 
-        <a href="" id="paper">
-            <img src="images/Paper1.png" alt="paper" onselect="selectCard()">
-            <h3>PAPER</h3>
-        </a>
+        <!-- </option> -->
 
-        <a href="" id="scissors">
-            <img src="images/Scissors1.png" alt="scissors" onselect="selectCard()">
-            <h3>SCISSORS</h3>
-        </a>
+        <!-- <option value="scissors"> -->
+        <button id="scissors">
+                    <img src="images/Scissors1.png" alt="scissors"
+                        >
+                        <!-- onclick="selectScissors()" -->
+                    <h3>SCISSORS</h3>
+                </button>
+        <!-- </option> -->
 
     </div>
     <!-- <form action="/server.js" method="post"> -->
@@ -124,7 +136,7 @@
     <h3 id="print"></h3>
     <!-- </form> -->
 </body>
-
+<script src="../game.js"></script>
 <!-- method="GET" -->
 
 </html>

@@ -19,42 +19,60 @@ server.listen(5000, function() {
     console.log('Starting server on port 5000');
 });
 
+
 // Add the WebSocket handlers
 io.on('connection', function(socket) {
-    socket.on('chat message', function(msg) {
-        io.sockets.emit('chat message' + msg);
+    socket.on("selectOpt", function(data) {
+        io.sockets.emit("selectOpt", data);
+    });
+
+    socket.on("name", function(name, fn) {
+        fn(name + ' is playing ');
     });
 });
-// socket.on("player.name", function (player1,player2) {
-// fn(document.write("<h3>"+player1 + "and"+player2 +"are online</h3>") );
-// });
+
+var players = {};
+io.on('connection', function(socket) {
+    socket.on('new player', function() {
+        players[socket.id] = {
+            x: 300,
+            y: 300
+        };
+    });
+    socket.on('play', function(data) {
+        var player = players[socket.id] || {};
+        if (data.rock) {
+            // alert("hgtf");
+        }
+        if (data.up) {
+            player.y -= 5;
+        }
+        if (data.right) {
+            player.x += 5;
+        }
+        if (data.down) {
+            player.y += 5;
+        }
+    });
+});
+setInterval(function() {
+    io.sockets.emit('state', players);
+}, 1000 / 60);
+
+
+// 
+// app.get('/', function(req, res) {
+//     res.send(document.getElementById("player").value)
 // });
 
-// io.emit(player1)
+// socket.emit('new player');
+// setInterval(function() {
+//     socket.emit('movement', movement);
+// }, 1000 / 60);
 
-// var players = {};
-// io.on('connection', function(socket) {
-//     socket.on('new player', function() {
-//         players[socket.id] = {
-//             // Get player name and display it
-//             socket.on('movement', function(data) {
-//                 var player = players[socket.id] || {};
-//                 if (data.left) {
-//                   player.x -= 5;
-//                 }
-//                 if (data.up) {
-//                   player.y -= 5;
-//                 }
-//                 if (data.right) {
-//                   player.x += 5;
-//                 }
-//                 if (data.down) {
-//                   player.y += 5;
-//                 }
-//               });
-//             });
-//         };
-//     });
+
+
+
 
 //     // The selected card switch-case. If the user selects either of the cases ...
 //     // function selectCard() {
