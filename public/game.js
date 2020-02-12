@@ -1,7 +1,7 @@
 var socket = io();
 
 
-
+var playerName = document.getElementById("player").value;
 
 function player() {
 
@@ -9,8 +9,8 @@ function player() {
     // var playerName = {
     //     name: document.getElementById("player").value
     // };
-    var playerName = document.getElementById("player").value;
 
+    // playerName
     document.getElementById("player").style.display = "none";
     document.getElementById("submit").style.display = "none";
     document.getElementById("print").innerHTML = "Your Name: " + playerName;
@@ -23,26 +23,13 @@ socket.on('connect', function() {
     // TIP: you can avoid listening on `connect` and listen on events directly too!
     if (player() != null) {
         socket.emit("name", document.getElementById("player"), function(data) { // args are sent in order to acknowledgement function
-            // data = player.name; //  // data will be 'tobi says woot'
             // console.log(data);
-
-
-            //     socket.emit("selectOpt", {
-            //     paper: paper.value,
-            // })
             alert(data);
         });
     }
 });
 
-socket.on('state', function(players) {
 
-    for (var id in players) {
-        var player = players[id];
-        // playerName;
-
-    }
-});
 
 
 
@@ -98,6 +85,20 @@ setInterval(function() {
     socket.emit('play', play);
     // console.log("play");
 }, 1000 / 60);
+
+
+socket.on('state', function(players) {
+
+    for (var id in players) {
+        var player = players[id];
+        console.log(id);
+        rock;
+        paper;
+        scissors;
+
+
+    }
+});
 // scissors.style.display = none;
 // function selectRock() {
 //     // alert("rosc");

@@ -46,22 +46,25 @@ io.on('connection', function(socket) {
 
         players[socket.id] = {
             // alert("this");
+            rock: null,
+            paper: null,
+            scissors: null
+
         };
+        // console.log(players)
     });
     socket.on('play', function(data) {
         var player = players[socket.id] || {};
         if (data.rock) {
             // alert("hgtf");
         }
-        if (data.up) {
+        if (data.paper) {
             player.y -= 5;
         }
-        if (data.right) {
+        if (data.scissors) {
             player.x += 5;
         }
-        if (data.down) {
-            player.y += 5;
-        }
+
     });
 });
 setInterval(function() {
