@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
     socket.on('play', function(data) {
         var player = players[socket.id] || {};
         if (data.rock) {
-            // alert("hgtf");
+            player.rock = true;
         }
         if (data.paper) {
             player.y -= 5;

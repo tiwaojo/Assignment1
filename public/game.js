@@ -91,7 +91,10 @@ socket.on('state', function(players) {
 
     for (var id in players) {
         var player = players[id];
-        console.log(id);
+        player[0];
+        player[1];
+
+        // alert(player[0]);
         rock;
         paper;
         scissors;
