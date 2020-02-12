@@ -46,6 +46,76 @@ socket.on('state', function(players) {
 
 
 
+var play = {
+    rock: false,
+    paper: false,
+    scissors: false,
+};
+var rock = document.getElementById("rock"),
+    paper = document.getElementById("paper"),
+    scissors = document.getElementById("scissors");
+// choice = document.getElementsByClassName("item");
+
+rock.addEventListener("click", function() {
+
+    socket.emit("selectOpt1", {
+        rock: rock.value,
+    })
+    play.rock = true;
+});
+paper.addEventListener("click", function() {
+    socket.emit("selectOpt2", {
+        paper: paper.value,
+    })
+
+    play.paper = true;
+});
+scissors.addEventListener("click", function() {
+
+    socket.emit("selectOpt3", {
+        scissors: scissors.value,
+    });
+    play.scissors = true;
+});
+
+
+// What you played
+socket.on("selectOpt1", function(data) {
+    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.rock + "</h3>";
+});
+
+socket.on("selectOpt2", function(data) {
+    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.paper + "</h3>";
+});
+
+socket.on("selectOpt3", function(data) {
+    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.scissors + "</h3>";
+});
+
+
+socket.emit('new player');
+setInterval(function() {
+    socket.emit('play', play);
+    // console.log("play");
+}, 1000 / 60);
+// scissors.style.display = none;
+// function selectRock() {
+//     // alert("rosc");
+//     play.rock = true;
+// };
+
+// function selectPaper() {
+//     // alert("rosc");
+//     play.paper = true;
+// };
+
+// function selectScissors(event) {
+//     // alert("rosc");
+//     play.scissors = true;
+// };
+
+
+
 
 
 
@@ -82,78 +152,5 @@ socket.on('state', function(players) {
 // setInterval(function() {
 // socket.emit('message', playerName);
 // }, 1000 / 60);
-
-var play = {
-    rock: false,
-    paper: false,
-    scissors: false,
-};
-var rock = document.getElementById("rock"),
-    paper = document.getElementById("paper"),
-    scissors = document.getElementById("scissors");
-// choice = document.getElementsByClassName("item");
-
-rock.addEventListener("click", function() {
-    // document.getElementsByClassName("item").style.display = none;
-    socket.emit("selectOpt1", {
-        rock: rock.value,
-    })
-    play.rock = true;
-});
-paper.addEventListener("click", function() {
-    socket.emit("selectOpt2", {
-            paper: paper.value,
-        })
-        // document.getElementsByClassName("item").style.display = none;
-    play.paper = true;
-});
-scissors.addEventListener("click", function() {
-
-    socket.emit("selectOpt3", {
-        scissors: scissors.value,
-    });
-    play.scissors = true;
-});
-
-
-
-socket.on("selectOpt1", function(data) {
-    // document.getElementsByClassName("item").style.display = none;
-    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.rock + "</h3>";
-});
-// rock.style.display = none;
-socket.on("selectOpt2", function(data) {
-    // document.getElementsByClassName("item").style.display = none;
-    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.paper + "</h3>";
-});
-// paper.style.display = none;
-socket.on("selectOpt3", function(data) {
-    // document.getElementsByClassName("item").style.display = none;
-    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.scissors + "</h3>";
-});
-
-
-socket.emit('new player');
-setInterval(function() {
-    socket.emit('play', play);
-    // console.log("play");
-}, 1000 / 60);
-// scissors.style.display = none;
-// function selectRock() {
-//     // alert("rosc");
-//     play.rock = true;
-// };
-
-// function selectPaper() {
-//     // alert("rosc");
-//     play.paper = true;
-// };
-
-// function selectScissors(event) {
-//     // alert("rosc");
-//     play.scissors = true;
-// };
-
-
 
 // constantly send the users play choice to server
