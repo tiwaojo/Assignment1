@@ -23,15 +23,21 @@ server.listen(5000, function() {
 // Add the WebSocket handlers
 io.on('connection', function(socket) {
     socket.on("selectOpt1", function(data) {
-        io.sockets.emit("selectOpt1", data);
+        io.sockets.emit("selectOpt1", data); {
+            var playRock = data;
+        };
         // fn(data + "selected");
     });
     socket.on("selectOpt2", function(data) {
-        io.sockets.emit("selectOpt2", data);
+        io.sockets.emit("selectOpt2", data); {
+            var playPaper = data;
+        }
         // fn(data + "selected");
     });
     socket.on("selectOpt3", function(data) {
-        io.sockets.emit("selectOpt3", data);
+        io.sockets.emit("selectOpt3", data); {
+            var playScissors = data;
+        }
         // fn(data + "selected");
     });
 
@@ -59,16 +65,17 @@ io.on('connection', function(socket) {
             player.rock = true;
         }
         if (data.paper) {
-            player.y -= 5;
+            player.paper = true;
         }
         if (data.scissors) {
-            player.x += 5;
+            player.scissors = true;
         }
 
     });
 });
 setInterval(function() {
     io.sockets.emit('state', players);
+
 }, 1000 / 60);
 
 

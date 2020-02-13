@@ -13,7 +13,7 @@ function player() {
     // playerName
     document.getElementById("player").style.display = "none";
     document.getElementById("submit").style.display = "none";
-    document.getElementById("print").innerHTML = "Your Name: " + playerName;
+    // document.getElementById("print").innerHTML = "Your Name: " + playerName;
     return playerName;
 }
 
@@ -68,7 +68,8 @@ scissors.addEventListener("click", function() {
 
 // What you played
 socket.on("selectOpt1", function(data) {
-    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.rock + "</h3>";
+    document.getElementById("print").innerHTML += '<h3>' + "player1 won";
+    //  + data.rock + "</h3>";
 });
 
 socket.on("selectOpt2", function(data) {
@@ -88,28 +89,33 @@ setInterval(function() {
 
 
 socket.on('state', function(players) {
-    var clients = [];
+    // var clients = [];
     for (var id in players) {
-        // var player = players[id];
-        clients[0] = players[id];
-        clients[1] = players[id];
+        var player = players[id];
+        player = { rock, paper, scissors }
+            // clients[] = players[id];
+            // clients[1] = players[id];
+            // var clients = [players[id]];
 
 
 
         // alert(player[0]);
-        rock;
-        paper;
-        scissors;
+        // rock;
+        // paper;
+        // scissors;
 
 
     }
-    // var player1 = io.sockets.clients(players);
-    // var player2 = io.sockets.clients(players);
+    // if (pl)
 
-    if ((clients[0] == rock) || (clients[1] == rock)) {
-        alert("won");
-    }
+
+
 });
+
+// if ((clients[0] == rock) && (clients[1] == rock)) {
+//     alert("won");
+// }// var player1 = io.sockets.clients(players);
+// var player2 = io.sockets.clients(players);
 // scissors.style.display = none;
 // function selectRock() {
 //     // alert("rosc");
@@ -128,21 +134,12 @@ socket.on('state', function(players) {
 
 
 
-
-
-
-
-
-
 // socket.on('connect', function(data) {
 //     document.getElementById("print").innerHTML = "Your Name: " + player.name;
 // });
 
 
 // = document.getElementById("player");
-
-
-
 
 
 
