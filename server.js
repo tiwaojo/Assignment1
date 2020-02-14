@@ -47,8 +47,17 @@ io.on('connection', function(socket) {
 });
 
 var players = {};
+var player1 = {};
+var player2 = {};
+// var playerName, playerId;
 io.on('connection', function(socket) {
-    socket.on('new player', function() {
+    socket.on('new player', function(data) {
+        var playerName = data.playerName;
+        var playerId = data.playerId;
+        // console.log(playerName+""+playerId);
+        // player1[playerName] = playerId;
+        // player[0] = player1;
+        // player[1] = player2;
 
         players[socket.id] = {
             // alert("this");
@@ -57,26 +66,42 @@ io.on('connection', function(socket) {
             scissors: null
 
         };
+        // player2 = {
+        //     // alert("this");
+        //     rock: null,
+        //     paper: null,
+        //     scissors: null
+
+        // };
+        // if (player1[playerId].rock == player2[playerId].rock) {
+        //     console.log("Both played Rock");
+        // }
+
         // console.log(players)
     });
+
     socket.on('play', function(data) {
-        var player = players[socket.id] || {};
-        if (data.rock) {
-            player.rock = true;
+        // This is supposedly for if the client disconnects the canvas removes the player from screen
+        // var player1 = player1[socket.id] || {};
+        // var player2 = player2[socket.id] || {};
+        if (data == data.rock) {
+            console.log("rock was played");
         }
-        if (data.paper) {
-            player.paper = true;
+        if (data == data.paper) {
+            // player.paper = true;
+            console.log("rock was played");
         }
-        if (data.scissors) {
-            player.scissors = true;
+        if (data == data.scissors) {
+            // player.scissors = true;
+            console.log("rock was played");
         }
 
     });
 });
-setInterval(function() {
-    io.sockets.emit('state', players);
+// setInterval(function() {
+//     io.sockets.emit('state', players);
 
-}, 1000 / 60);
+// }, 1000 / 60);
 
 
 // 

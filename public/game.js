@@ -1,37 +1,10 @@
 var socket = io();
 
 
-var playerName = document.getElementById("player").value;
 
-function player() {
-
-    // Gets user name
-    // var playerName = {
-    //     name: document.getElementById("player").value
-    // };
-
-    // playerName
-    document.getElementById("player").style.display = "none";
-    document.getElementById("submit").style.display = "none";
-    // document.getElementById("print").innerHTML = "Your Name: " + playerName;
-    return playerName;
-}
+var playerName = prompt("Please Insert a name: ");
 
 // Names of players
-socket.on('connect', function() {
-
-    // TIP: you can avoid listening on `connect` and listen on events directly too!
-    if (player() != null) {
-        socket.emit("name", document.getElementById("player"), function(data) { // args are sent in order to acknowledgement function
-            // console.log(data);
-            alert(data);
-        });
-    }
-});
-
-
-
-
 
 var play = {
     rock: false,
@@ -46,30 +19,34 @@ var rock = document.getElementById("rock"),
 rock.addEventListener("click", function() {
 
     socket.emit("selectOpt1", {
-        rock: rock.value,
+        rock: play.rock = true,
     })
-    play.rock = true;
+
 });
 paper.addEventListener("click", function() {
     socket.emit("selectOpt2", {
-        paper: paper.value,
+        paper: play.paper = true,
     })
 
-    play.paper = true;
+
 });
 scissors.addEventListener("click", function() {
 
     socket.emit("selectOpt3", {
-        scissors: scissors.value,
-    });
-    play.scissors = true;
-});
+        scissors: play.scissors = true
 
+    });
+
+});
+setInterval(function() {
+    socket.emit('play', play);
+    // console.log("play");
+}, 1000 / 60);
 
 // What you played
 socket.on("selectOpt1", function(data) {
-    document.getElementById("print").innerHTML += '<h3>' + "player1 won";
-    //  + data.rock + "</h3>";
+    document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.rock + "</h3>"
+        //  + data.rock + "</h3>";
 });
 
 socket.on("selectOpt2", function(data) {
@@ -80,34 +57,46 @@ socket.on("selectOpt3", function(data) {
     document.getElementById("print").innerHTML += '<h3>' + "You played: " + data.scissors + "</h3>";
 });
 
+var player = { name: playerName, playerId: socket.id, play };
+socket.emit('new player', player);
+// socket.emit('new player');
 
-socket.emit('new player');
-setInterval(function() {
-    socket.emit('play', play);
-    // console.log("play");
-}, 1000 / 60);
 
 
 socket.on('state', function(players) {
-    // var clients = [];
+    //     // var clients = [];
     for (var id in players) {
         var player = players[id];
-        player = { rock, paper, scissors }
-            // clients[] = players[id];
-            // clients[1] = players[id];
-            // var clients = [players[id]];
+
+        // player = { rock, paper, scissors }
+        //         // clients[] = players[id];
+        //         // clients[1] = players[id];
+        //         // var clients = [players[id]];
+        //         // socket.emit("userConnected",player1,player2);
+        //         // var player1=io.clients[sessionID].send();
 
 
-
-        // alert(player[0]);
-        // rock;
-        // paper;
-        // scissors;
+        //         // alert(player[0]);
+        //         // rock;
+        //         // paper;
+        //         // scissors;
 
 
     }
-    // if (pl)
 
+    //     // if (pl)
+
+
+
+});
+
+socket.on('connect', function() {
+    // TIP: you can avoid listening on `connect` and listen on events directly too!
+    socket.emit("name", playerName, function(data) { // args are sent in order to acknowledgement function
+
+        document.getElementById("print").innerHTML += '<h3>' + data + "</h3>";
+        // alert(data);
+    })
 
 
 });
@@ -163,3 +152,9 @@ socket.on('state', function(players) {
 // }, 1000 / 60);
 
 // constantly send the users play choice to server
+// Gets user name
+// var playerName = {
+//     name: document.getElementById("player").value
+// };
+
+// playerName
